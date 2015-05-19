@@ -2,7 +2,7 @@ Logitech PTZ Camera Controller
 ------------------------------
 
 Freeware created out of necessity, this little guy allows you to control the
-Pan-Tilt-Zoom of a Logitech " & DEVICE_NAME & " using on-screen buttons or
+Pan-Tilt-Zoom of a Logitech BCC950 ConferenceCam using on-screen buttons or
 the arrow-keys & home-end (for zoom)
 
 

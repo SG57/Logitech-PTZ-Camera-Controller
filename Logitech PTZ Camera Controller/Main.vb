@@ -90,6 +90,7 @@ Public Class Main
     End Sub
 
 
+
     Protected Overrides Function ProcessCmdKey(ByRef msg As System.Windows.Forms.Message, keyData As System.Windows.Forms.Keys) As Boolean
         For Each cmd In System.Enum.GetValues(GetType(Command))
             If cmd = keyData Then
@@ -130,19 +131,24 @@ Public Class Main
 
 
     Private Sub ProcessCommand(ByVal cmd As Command)
-        Select Case cmd
-            Case Command.PanDown
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(0, -1)
-            Case Command.PanUp
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(0, 1)
-            Case Command.PanRight
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(1, 0)
-            Case Command.PanLeft
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(-1, 0)
-            Case Command.ZoomIn
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Zoom(1)
-            Case Command.ZoomOut
-                PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Zoom(-1)
-        End Select
+        Try
+            Select Case cmd
+                Case Command.PanDown
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(0, -1)
+                Case Command.PanUp
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(0, 1)
+                Case Command.PanRight
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(1, 0)
+                Case Command.PanLeft
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Move(-1, 0)
+                Case Command.ZoomIn
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Zoom(1)
+                Case Command.ZoomOut
+                    PTZDevice.GetDevice(DEVICE_NAME, PTZType.Relative).Zoom(-1)
+            End Select
+        Catch e As Exception
+            Me.timerCommands.Stop()
+            MessageBox.Show("Error attempting to control " & DEVICE_NAME & " device:" & Environment.NewLine & Environment.NewLine & e.Message & Environment.NewLine & Environment.NewLine & "Make sure your device drivers are up-to-date.")
+        End Try
     End Sub
 End Class
